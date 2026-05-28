@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>siu cấp thế giới di động</title>
+    <!-- Tailwind CSS và FontAwesome -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Màu vàng đen thương hiệu TGDD */
+        .bg-tgdd-yellow { background-color: #ffd400; }
+        .text-tgdd-yellow { color: #ffd400; }
+        .bg-tgdd-header { background-color: #ffd400; }
+        /* Tối ưu cắt chữ nếu tên sản phẩm quá dài */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-[#f3f3f3] font-sans text-gray-800 antialiased">
+
+    <!-- TOP BANNER CHUẨN TGDD -->
+    <div class="bg-[#e02027] text-white text-center py-1 text-xs md:text-sm font-semibold hidden sm:block">
+         can kết bộ ba bảo vệ: Khách hàng là số 1 - Giao siêu tốc - Lỗi đổi mới 1 tháng!
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-tgdd-header sticky top-0 z-40 shadow-sm border-b border-yellow-500">
+        <div class="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
+            
+            <!-- LOGO -->
+            <a href="#" class="flex-shrink-0 flex items-center gap-1.5">
+                <div class="bg-black text-tgdd-yellow font-black px-2.5 py-1.5 rounded-md text-base md:text-lg tracking-tighter flex items-center">
+                    thegioi<span class="text-white ml-0.5 font-bold">didong</span>
+                </div>
+            </a>
+
+            <!-- THANH TÌM KIẾM -->
+            <div class="relative flex-1 max-w-md hidden sm:block">
+                <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Bạn tìm gì hôm nay... (iPhone 15, Laptop Gaming?)" class="w-full pl-3 pr-10 py-1.5 text-xs rounded bg-white text-black placeholder-gray-500 border border-transparent focus:outline-none focus:border-black shadow-sm">
+                <button class="absolute right-0 top-0 bottom-0 px-3 text-gray-600 hover:text-black">
+                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                </button>
+            </div>
+
+            <!-- TIỆN ÍCH RIGHT HEADER -->
+            <div class="flex items-center gap-4 text-xs md:text-sm font-medium text-black">
+                <a href="tel:18001060" class="hidden lg:flex items-center gap-1.5 bg-yellow-400/50 px-2 py-1 rounded border border-yellow-500">
+                    <i class="fa-solid fa-phone text-sm"></i>
+                    <span>Gọi mua: <strong class="font-bold">1800.1060</strong></span>
+                </a>
+                
+                <div class="relative bg-yellow-500/30 p-2 rounded-full cursor-pointer hover:bg-yellow-500/50 transition">
+                    <i class="fa-solid fa-cart-shopping text-base"></i>
+                    <span id="cartCount" class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- THANH TÌM KIẾM DÀNH CHO MOBILE -->
+        <div class="px-4 pb-2 sm:hidden">
+            <div class="relative w-full">
+                <input type="text" id="searchInputMobile" oninput="syncAndFilterMobile(this)" placeholder="Bạn sẽ chọn cho mình cái gì đây..." class="w-full pl-3 pr-10 py-2 text-xs rounded bg-white text-black shadow-inner">
+                <i class="fa-solid fa-magnifying-glass absolute right-3 top-2.5 text-gray-400"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-6xl mx-auto px-2 sm:px-4 py-4">
+        
+        <!-- BANNER PROMO CHUẨN ĐẸP -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+            <div class="md:col-span-2 bg-gradient-to-r from-amber-500 to-yellow-400 rounded-lg p-5 text-black flex flex-col justify-center relative overflow-hidden shadow-sm h-36 md:h-44">
+                <div class="z-10">
+                    <span class="bg-black text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Độc Quyền Hè 2026</span>
+                    <h2 class="text-xl md:text-2xl font-black mt-1 text-slate-900">SĂN SMARTPHONE - GIẢM ĐẾN 36%</h2>
+                    <p class="text-xs md:text-sm font-medium text-slate-800 mt-1">Áp dụng kèm ưu đãi giảm thêm cho Học sinh - Sinh viên.</p>
+                </div>
+                <div class="absolute right-4 bottom-0 text-7xl opacity-20 pointer-events-none font-bold">📱💻</div>
+            </div>
+            <div class="hidden md:flex bg-blue-900 text-white rounded-lg p-5 flex-col justify-between shadow-sm">
+                <div>
+                    <h3 class="font-bold text-sm text-yellow-300">⚡ LAPTOP CHÍNH HÃNG CHẤT LỚN CAO⚡</h3>
+                    <p class="text-xs mt-1 text-gray-200">Xả kho giá gốc - Bảo hành 2 năm lỗi 1 đổi 1 cực uy tín cực thuyết phục.</p>
+                </div>
+                <div class="text-right font-black text-lg text-yellow-300">GIẢM ĐẾN 5 TRIỆU </div>
+            </div>
+        </div>
+
+        <!-- DANH MỤC LỌC SẢN PHẨM (Tái cấu trúc giống thanh filter của TGDD) -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-none">
+            <button onclick="changeCategory('all')" id="btn-all" class="category-btn whitespace-nowrap bg-black text-white px-4 py-1.5 rounded text-xs font-semibold border border-black shadow-sm transition">
+                Tất cả sản phẩm
+            </button>
+            <button onclick="changeCategory('phone')" id="btn-phone" class="category-btn whitespace-nowrap bg-white text-gray-700 hover:border-gray-400 px-4 py-1.5 rounded text-xs font-medium border border-gray-200 shadow-sm transition">
+                <i class="fa-solid fa-mobile-screen-button mr-1 text-blue-500"></i> Điện thoại
+            </button>
+            <button onclick="changeCategory('laptop')" id="btn-laptop" class="category-btn whitespace-nowrap bg-white text-gray-700 hover:border-gray-400 px-4 py-1.5 rounded text-xs font-medium border border-gray-200 shadow-sm transition">
+                <i class="fa-solid fa-laptop mr-1 text-purple-500"></i> Laptop
+            </button>
+        </div>
+
+        <!-- KHUNG CHỨA SẢN PHẨM -->
+        <div class="bg-white rounded-lg p-3 shadow-sm">
+            <div class="border-b border-gray-100 pb-3 mb-4 flex justify-between items-center">
+                <h3 class="font-bold text-sm uppercase tracking-tight text-gray-900 flex items-center gap-1.5">
+                    <span class="w-1 h-4 bg-yellow-500 inline-block rounded"></span> SẢN PHẨM NỔI BẬT KHUYẾN MÃI
+                </h3>
+                <span class="text-xs text-gray-500" id="productCount">Đang tải...</span>
+            </div>
+            
+            <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4">
+                <!-- Data đổ tự động ở đây -->
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER CHUẨN THÔNG TIN -->
+    <footer class="bg-white text-gray-600 text-xs mt-12 border-t border-gray-200 py-8">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+                <p class="font-bold text-gray-800 mb-2 text-sm">Tổng đài hỗ trợ (Miễn phí)</p>
+                <p class="mb-1">Gọi mua: <span class="text-blue-600 font-semibold">1800.1060</span> (7:30 - 22:00)</p>
+                <p class="mb-1">Khiếu nại: <span class="text-blue-600 font-semibold">1800.1062</span> (8:00 - 21:30)</p>
+                <p>Bảo hành: <span class="text-blue-600 font-semibold">1800.1064</span> (8:00 - 21:00)</p>
+            </div>
+            <div>
+                <p class="font-bold text-gray-800 mb-2 text-sm">Chính sách chung</p>
+                <ul class="space-y-1">
+                    <li><a href="#" class="hover:text-blue-600">Chính sách bảo hành 1 đổi 1</a></li>
+                    <li><a href="#" class="hover:text-blue-600">Giao hàng hỏa tốc nội thành</a></li>
+                    <li><a href="#" class="hover:text-blue-600">Hướng dẫn mua trả góp 0%</a></li>
+                </ul>
+            </div>
+            <div class="md:text-right">
+                <p class="font-bold text-gray-800 mb-1 text-sm">© 2026 Thế Giới Di Động Nhà Làm</p>
+                <p class="text-gray-400 mb-2">Mô phỏng giao diện tối giản của TGDD</p>
+                <div class="flex md:justify-end gap-3 text-lg text-gray-400">
+                    <i class="fa-brands fa-facebook hover:text-blue-600 cursor-pointer"></i>
+                    <i class="fa-brands fa-youtube hover:text-red-600 cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL ĐẶT MUA -->
+    <div id="orderModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white p-5 rounded-lg shadow-2xl max-w-sm w-full mx-4 relative transform scale-95 transition-transform duration-300">
+            <button onclick="closeModal()" class="absolute top-3 right-4 text-gray-400 hover:text-black text-xl font-bold">&times;</button>
+            
+            <div class="text-center mb-4">
+                <h3 class="text-base font-bold text-gray-900">🛒 ĐẶT MUA NHANH</h3>
+                <p class="text-xs text-gray-500 mt-1">Nhân viên sẽ gọi tư vấn miễn phí ngay lập tức</p>
+            </div>
+            
+            <div class="bg-gray-50 p-3 rounded border border-gray-100 mb-4 text-xs">
+                <p class="text-gray-500">Sản phẩm lựa chọn:</p>
+                <p id="modalProductName" class="font-bold text-gray-950 text-sm mt-0.5 text-blue-700"></p>
+                <p id="modalProductPrice" class="font-extrabold text-red-600 mt-0.5"></p>
+            </div>
+            
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <div class="mb-3">
+                    <label class="block text-[11px] font-bold text-gray-700 uppercase mb-1">Họ và tên của bạn</label>
+                    <input type="text" required placeholder="Nhập tên khách hàng..." class="w-full px-3 py-2 border border-gray-300 rounded text-xs focus:outline-none focus:border-yellow-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-[11px] font-bold text-gray-700 uppercase mb-1">Số điện thoại nhận cuộc gọi</label>
+                    <input type="tel" required pattern="[0-9]{10}" placeholder="Ví dụ: 0912345678" class="w-full px-3 py-2 border border-gray-300 rounded text-xs focus:outline-none focus:border-yellow-500">
+                </div>
+                <button type="submit" class="w-full bg-tgdd-yellow text-black font-bold py-2.5 rounded text-xs shadow hover:bg-yellow-400 transition tracking-wider uppercase">
+                    🚀 Xác nhận gửi yêu cầu tư vấn
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT CHUYÊN NGHIỆP -->
+    <script>
+        // Mock dữ liệu có nhãn sale và giá gốc để hiển thị giống thật hơn
+        const products = [
+            { id: 1, name: "iPhone 15 Pro Max 256GB", price: 29990000, oldPrice: 34990000, category: "phone", image: "📱", spec: "Chip A17 Pro, RAM 8GB, Siêu nhẹ Titan" },
+            { id: 2, name: "Samsung Galaxy S24 Ultra", price: 27490000, oldPrice: 31990000, category: "phone", image: "📱", spec: "Snapdragon 8 Gen 3, Camera AI 200MP" },
+            { id: 3, name: "Oppo Reno11 F 5G Chính Hãng", price: 8490000, oldPrice: 9990000, category: "phone", image: "📱", spec: "RAM 8GB, Sạc nhanh SuperVOOC 67W" },
+            { id: 4, name: "MacBook Air M3 13 inch 2024", price: 27990000, oldPrice: 32990000, category: "laptop", image: "💻", spec: "Apple M3, RAM 8GB, SSD 256GB mỏng nhẹ" },
+            { id: 5, name: "Asus Vivobook 14 X1404VA Mới", price: 12290000, oldPrice: 14500000, category: "laptop", image: "💻", spec: "Core i3 Gen 13, RAM 8GB, SSD 512GB siêu mượt" },
+            { id: 6, name: "Lenovo IdeaPad Slim 3 15AMN8", price: 14490000, oldPrice: 16900000, category: "laptop", image: "💻", spec: "Ryzen 5, SSD 512GB, Màn hình chống chói Full HD" }
+        ];
+
+        let currentCategory = 'all';
+
+        // Hàm định dạng tiền tệ sang dạng chuỗi (Ví dụ: 29.990.000đ)
+        function formatMoney(num) {
+            return num.toLocaleString('vi-VN') + 'đ';
+        }
+
+        // Đồng bộ hóa thanh tìm kiếm PC và Mobile
+        function syncAndFilterMobile(el) {
+            document.getElementById('searchInput').value = el.value;
+            filterProducts();
+        }
+
+        // Hàm kết xuất (render) sản phẩm ra màn hình - Đã sửa lỗi dấu nháy ` Template Literals
+        function renderProducts(filteredProducts) {
+            const grid = document.getElementById('productGrid');
+            const countTxt = document.getElementById('productCount');
+            grid.innerHTML = ''; 
+
+            countTxt.innerText = `Tìm thấy ${filteredProducts.length} sản phẩm`;
+
+            if(filteredProducts.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center text-gray-400 py-12 text-xs">Không tìm thấy sản phẩm nào phù hợp theo yêu cầu của bạn.</div>`;
+                return;
+            }
+
+            filteredProducts.forEach(product => {
+                // Tính toán phần trăm giảm giá hiển thị nhãn đỏ giống TGDD
+                const discount = Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100);
+                
+                const productCard = `
+                    <div class="bg-white p-2.5 sm:p-4 rounded-md border border-gray-100 hover:border-yellow-400 hover:shadow-md transition duration-200 flex flex-col justify-between relative group">
+                        <!-- Nhãn giảm giá -->
+                        <span class="absolute top-2 left-2 bg-red-600 text-white font-bold text-[10px] px-1.5 py-0.5 rounded">Giảm ${discount}%</span>
+                        
+                        <div>
+                            <!-- Khu ảnh demo emoji -->
+                            <div class="bg-gray-50 rounded-md h-28 sm:h-36 flex items-center justify-center text-4xl sm:text-5xl mb-3 group-hover:scale-105 transition-transform duration-200">${product.image}</div>
+                            <!-- Tên SP -->
+                            <h3 class="font-bold text-xs sm:text-sm text-gray-900 line-clamp-2 min-h-[36px] sm:min-h-[40px] leading-tight hover:text-blue-600 cursor-pointer">${product.name}</h3>
+                            <!-- Cấu hình chi tiết -->
+                            <p class="text-[10px] sm:text-xs text-gray-500 mt-1 bg-gray-50 p-1.5 rounded leading-normal">${product.spec}</p>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <!-- Giá bán -->
+                            <div class="flex items-baseline gap-1.5 flex-wrap">
+                                <span class="text-red-600 font-extrabold text-xs sm:text-base">${formatMoney(product.price)}</span>
+                                <span class="text-gray-400 line-through text-[10px] sm:text-xs">${formatMoney(product.oldPrice)}</span>
+                            </div>
+                            
+                            <!-- Nút mua hàng tối ưu kích thước -->
+                            <button onclick="openModal('${product.name}', '${formatMoney(product.price)}')" class="w-full mt-2.5 bg-tgdd-yellow text-black text-[11px] font-bold py-2 rounded hover:bg-yellow-400 transition cursor-pointer">
+                                MUA NGAY
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += productCard;
+            });
+        }
+
+        // Bộ lọc kết hợp Search và Category
+        function filterProducts() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            const filtered = products.filter(product => {
+                const matchCategory = (currentCategory === 'all' || product.category === currentCategory);
+                const matchSearch = product.name.toLowerCase().includes(searchText);
+                return matchCategory && matchSearch;
+            });
+
+            renderProducts(filtered);
+        }
+
+        // Chuyển đổi danh mục sản phẩm chủ động
+        function changeCategory(category) {
+            currentCategory = category;
+            
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.className = "category-btn whitespace-nowrap bg-white text-gray-700 hover:border-gray-400 px-4 py-1.5 rounded text-xs font-medium border border-gray-200 shadow-sm transition";
+            });
+            
+            // Highlight nút được chọn tích cực
+            document.getElementById(`btn-${category}`).className = "category-btn whitespace-nowrap bg-black text-white px-4 py-1.5 rounded text-xs font-semibold border border-black shadow-sm transition";
+
+            filterProducts();
+        }
+
+        // Xử lý đóng mở Modal nhanh gọn
+        function openModal(productName, productPrice) {
+            const modal = document.getElementById('orderModal');
+            document.getElementById('modalProductName').innerText = productName;
+            document.getElementById('modalProductPrice').innerText = productPrice;
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('orderModal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('orderForm').reset();
+            }, 300);
+        }
+
+        // Gửi thông tin đơn hàng và cập nhật giỏ hàng tạm thời
+        function submitOrder(event) {
+            event.preventDefault();
+            alert("🎉 Đặt hàng thành công!\nHệ thống tổng đài mô phỏng đã lưu thông tin tư vấn đơn hàng của bạn.");
+            
+            // Tăng số lượng giỏ hàng hiển thị thêm sinh động
+            const currentCart = parseInt(document.getElementById('cartCount').innerText);
+            document.getElementById('cartCount').innerText = currentCart + 1;
+            
+            closeModal();
+        }
+
+        // Chạy tải dữ liệu ban đầu
+        window.onload = () => {
+            renderProducts(products);
+        };
+    </script>
+</body>
+</html>
